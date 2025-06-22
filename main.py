@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import requests
+import os  # ✅ 别忘了导入 os
 
 app = Flask(__name__)
 
@@ -25,5 +26,7 @@ def search():
     except Exception as e:
         return jsonify({"abstract": "搜索失败", "url": "", "error": str(e)}), 500
 
+# ✅ 正确的启动方式
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
